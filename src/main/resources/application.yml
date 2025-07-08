@@ -1,0 +1,25 @@
+#spring:
+#  datasource:
+#    url: jdbc:postgresql://db:5432/digitrack
+#    username: digitrack
+#    password: digitrack2025@
+#    driver-class-name: org.postgresql.Driver
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.PostgreSQLDialect
+#  # Optionnel : pour rendre les logs SQL plus lisibles
+#  output:
+#    ansi:
+#      enabled: always
+#
+## Configuration éventuelle pour éviter certains problèmes de timezone avec Docker
+#server:
+#  port: 8080
+#
+#
+#material:
+#  seuil-dominant: 85

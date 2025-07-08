@@ -9,16 +9,12 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @Builder
-public class FluxDto {
-    private String id;
+public class RecomatFluxDto {
+
     private Map<String, Integer> repartition;
 
     @JsonCreator
-    public FluxDto(
-            @JsonProperty("id") String id,
-            @JsonProperty("repartition") Map<String, Integer> repartition
-    ) {
-        this.id = id;
+    public RecomatFluxDto(@JsonProperty("repartition") Map<String, Integer> repartition) {
         this.repartition = repartition;
     }
 }

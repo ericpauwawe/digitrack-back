@@ -52,12 +52,13 @@ public class MaterialService {
     private Map.Entry<String, Integer> findMainEntry(Map<String, Integer> repartition) {
         return repartition.entrySet()
                 .stream()
+                .map(entry -> Map.entry(entry.getKey().toUpperCase(), entry.getValue()))
                 .max(Map.Entry.comparingByValue())
                 .orElse(null);
     }
 
     private String getMaterialLabelOrDefault(Map.Entry<String, Integer> dominantEntry, int repartitionSize) {
-        String label = dominantEntry.getKey();
+        String label = dominantEntry.getKey().toUpperCase();
         int percentage = dominantEntry.getValue();
         log.info("Processing dominant entry - label: {}, percentage: {}%", label, percentage);
         Material mainMaterial = materialRepository.findByLabel(label);
@@ -67,7 +68,7 @@ public class MaterialService {
             return DECHETS_EN_MELANGE;
         }
 
-        if (repartitionSize == 1 && percentage == 100) {
+        if (percentage == 100) {
             log.info("Single material with 100% detected: {}", mainMaterial.getLabel());
             return mainMaterial.getLabel();
         }

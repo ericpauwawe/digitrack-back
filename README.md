@@ -25,6 +25,32 @@ reconnaissance sans dépendre d’un flux matériel réel ("envoyé via SQS).
 - **Maven** : Gestionnaire de dépendances et de build.
 - **Docker** : Conteneurisation de l’application et de la base de données.
 
+## Conception de la base de données
+
+La base de données est conçue pour stocker les matériaux et leur statut (déchet ou non). Elle est initialisée et migrée automatiquement grâce à Flyway.
+
+- **Table principale : MATERIAL**
+  - `id` (SERIAL, clé primaire)
+  - `label` (VARCHAR, nom du matériau, unique)
+  - `is_waste` (BOOLEAN, indique si le matériau est considéré comme un déchet)
+
+Exemple de création (voir `src/main/resources/db/migration/V1__create_material.sql`) :
+```sql
+CREATE TABLE MATERIAL (
+    id SERIAL PRIMARY KEY,
+    label VARCHAR(50) NOT NULL UNIQUE,
+    is_waste BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+INSERT INTO MATERIAL (label, is_waste) VALUES
+        ('CARTON', FALSE),
+        ('SABLE', TRUE),
+        ('TERRE', TRUE);
+```
+
+- Les migrations sont versionnées et appliquées automatiquement au démarrage de l’application.
+- Cette structure permet d’ajouter facilement de nouveaux matériaux ou de modifier leur statut.
+
 ### Structure des dossiers principaux
 
 - `src/main/java/com/altaroad/digitrack/`

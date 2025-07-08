@@ -1,0 +1,10 @@
+CREATE TABLE MATERIAL (
+    id SERIAL PRIMARY KEY,
+    label VARCHAR(50) NOT NULL UNIQUE,
+    is_waste BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+INSERT INTO MATERIAL (label, is_waste) VALUES
+        ('CARTON', FALSE),
+        ('SABLE', TRUE),
+        ('TERRE', TRUE);

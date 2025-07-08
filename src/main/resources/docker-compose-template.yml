@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:12
+    container_name: digitrack-postgres
+    environment:
+      POSTGRES_DB: digitrackDb
+      POSTGRES_USER: digitrack
+      POSTGRES_PASSWORD: digitrack2025@
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  app:
+    image: openjdk:17-jdk
+    container_name: digitrack-app
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/digitrackDb
+      SPRING_DATASOURCE_USERNAME: digitrack
+      SPRING_DATASOURCE_PASSWORD: digitrack2025@
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    volumes:
+      - ./target/digitrack-back-${project.version}.jar:/app/digitrack-back.jar
+      - ./config:/app/config
+      - ./src/main/resources/db/migration:/app/db/migration
+    working_dir: /app
+    command: [
+      "java",
+      "-jar", "digitrack-back.jar",
+      "--spring.config.location=file:/app/config/application.yml",
+      "--spring.flyway.locations=filesystem:/app/db/migration"
+    ]
+    ports:
+      - "8080:8080"
+
+volumes:
+  postgres_data:

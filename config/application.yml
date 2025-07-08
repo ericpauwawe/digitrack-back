@@ -1,0 +1,39 @@
+# Configuration de la base de données PostgreSQL
+spring:
+  datasource:
+    url: jdbc:postgresql://db:5432/digitrackDb         # URL de connexion à la base PostgreSQL
+    username: digitrack                              # Nom d'utilisateur
+    password: digitrack2025@                         # Mot de passe
+    driver-class-name: org.postgresql.Driver
+
+    # Driver JDBC PostgreSQL
+  jpa:
+    hibernate:
+      ddl-auto: update                              # Mise à jour automatique du schéma
+    show-sql: true                                  # Affiche les requêtes SQL dans les logs
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect  # Dialecte Hibernate pour PostgreSQL
+  # Optionnel : pour rendre les logs SQL plus lisibles
+  output:
+    ansi:
+      enabled: always                               # Active la coloration ANSI des logs
+  # Configuration de Flyway pour la gestion des migrations de base de données
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+
+# Configuration éventuelle pour éviter certains problèmes de timezone avec Docker
+server:
+  port: 8080                                       # Port d'écoute du serveur
+
+springdoc:
+  api-docs:
+    path: /api/docs
+  swagger-ui:
+    path: /api/swagger-ui.html
+
+
+material:
+  seuil-dominant: 85                               # Seuil de détection du matériau dominant (%)

@@ -1,5 +1,12 @@
  # Digitrack-back
 
+## Cloner le projet
+
+Clonez le dépôt git sur votre machine avec la commande suivante :
+```sh
+git clone https://github.com/ericpauwawe/digitrack-back.git
+```
+
 ## Présentation
 
 Digitrack-back est une API backend développée en Java avec Spring Boot, destinée à la reconnaissance et la classification des matériaux présents dans des flux de déchets. Elle permet d’identifier le matériau dominant dans un lot, de distinguer les mélanges, et de stocker les résultats dans une base de données PostgreSQL.
@@ -56,7 +63,7 @@ Ce seuil de dominance est configurable via la propriété `material.seuil-domina
    ```sh
    mvn clean package
    ```
-   Le jar sera généré dans `target/digitrack-back-1.0.0-SNAPSHOT.jar`.
+   Le jar sera généré dans le dossier `target/` avec un nom dépendant de la version définie dans le fichier `pom.xml` (par exemple : `digitrack-back-1.0.0-SNAPSHOT.jar`). Ce nom est templatisé et changera automatiquement si la version Maven évolue.
 
 2. **Lancer les conteneurs Docker** :
    ```sh
@@ -75,7 +82,7 @@ Ce seuil de dominance est configurable via la propriété `material.seuil-domina
 
 ## Exemple d’appel API
 
-Pour reconnaître un matériau dominant, faites un POST sur l’endpoint approprié (voir la documentation OpenAPI générée automatiquement sur `/swagger-ui.html` si activée).
+Pour reconnaître un matériau dominant, faites un POST sur l’endpoint approprié (voir la documentation OpenAPI générée automatiquement sur [http://localhost:8080/api/swagger-ui/index.html](http://localhost:8080/api/swagger-ui/index.html)).
 
 ---
 
